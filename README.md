@@ -1,4 +1,4 @@
-# README – ML1 : Extraction et préparation d’un dataset sur le diabète
+# ML1 : Extraction et préparation d’un dataset sur le diabète
 
 ## 📌 Contexte du projet
 Ce projet fait partie du TP **“ML 1 - Extraction et préparation d’un dataset sur le diabète”**.  
