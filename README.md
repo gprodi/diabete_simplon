@@ -1,4 +1,4 @@
-# README – ML1 : Extraction et préparation d’un dataset sur le diabète
+# ML1 : Extraction et préparation d’un dataset sur le diabète
 
 ## 📌 Contexte du projet
 Ce projet fait partie du TP **“ML 1 - Extraction et préparation d’un dataset sur le diabète”**.  
@@ -13,6 +13,31 @@ Le projet est réalisé en **groupe**, en utilisant **Python** et la bibliothèq
 |---------|-------------|
 | `eda_<initiales>_diabetes.ipynb` | Notebook contenant toutes les étapes d’import, d’exploration, de nettoyage et de visualisation des données. |
 | `diabetes_clean.csv` | Dataset final nettoyé et prêt à être utilisé pour un modèle prédictif. |
+
+---
+
+### Colonnes et signification
+
+| Colonne               | Type       | Signification | Explication médicale / Symptôme |
+|-----------------------|-----------|---------------|--------------------------------|
+| ID                    | Numérique | Identifiant unique du patient | - |
+| Age                   | Numérique | Âge du patient (en années) | - |
+| Gender                | Catégorielle | Sexe du patient (Male = 1, Female = 0) | - |
+| Polyuria              | Binaire   | Urines fréquentes (Yes = 1, No = 0) | Production excessive d’urine, souvent liée à un taux élevé de sucre dans le sang |
+| Polydipsia            | Binaire   | Soif excessive (Yes = 1, No = 0) | Sensation de soif intense, souvent liée à la déshydratation causée par le diabète |
+| Sudden weight loss    | Binaire   | Perte de poids soudaine (Yes = 1, No = 0) | Perte rapide de poids malgré un appétit normal ou accru |
+| Weakness              | Binaire   | Fatigue ou faiblesse (Yes = 1, No = 0) | Sensation générale de fatigue ou manque d’énergie |
+| Polyphagia            | Binaire   | Faim excessive (Yes = 1, No = 0) | Appétit accru, mange plus que d’habitude |
+| Genital thrush        | Binaire   | Infection génitale (Yes = 1, No = 0) | Infection fongique dans la région génitale, fréquente chez les diabétiques |
+| Visual blurring       | Binaire   | Vision floue (Yes = 1, No = 0) | Difficulté à voir clairement, souvent due à des changements dans les niveaux de glucose |
+| Itching               | Binaire   | Démangeaisons (Yes = 1, No = 0) | Démangeaisons de la peau, souvent causées par la sécheresse ou les infections |
+| Irritability          | Binaire   | Irritabilité (Yes = 1, No = 0) | Changements d’humeur fréquents ou sensation d’agacement |
+| Delayed healing       | Binaire   | Cicatrisation lente (Yes = 1, No = 0) | Les coupures ou blessures mettent plus de temps à guérir |
+| Partial paresis       | Binaire   | Faiblesse partielle des muscles (Yes = 1, No = 0) | Faiblesse partielle ou engourdissement dans certaines parties du corps |
+| Muscle stiffness      | Binaire   | Raideur musculaire (Yes = 1, No = 0) | Difficulté à bouger les muscles, sensation de rigidité |
+| Alopecia              | Binaire   | Perte de cheveux (Yes = 1, No = 0) | Chute de cheveux anormale ou diffuse |
+| Obesity               | Binaire   | Obésité (Yes = 1, No = 0) | Excès de poids corporel, facteur de risque du diabète |
+| Class                 | Binaire   | Présence de diabète (Positive = 1, Negative = 0) | Indique si le patient est atteint de diabète |
 
 ---
 
