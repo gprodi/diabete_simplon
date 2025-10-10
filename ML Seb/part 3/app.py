@@ -105,34 +105,121 @@ def home():
     html = """
     <html>
     <head>
-        <title>Prédiction Diabète</title>
+        <title>Avez vous le Diabète</title>
         <style>
-          body { font-family: sans-serif; padding: 2rem; }
-          input { margin: 0.2rem; width: 60px; }
-          button { margin-top: 1rem; }
-          .result { margin-top: 1rem; font-weight: bold; }
+            body { font-family: sans-serif; padding: 2rem; max-width: 600px; margin: auto; }
+            label { display: block; margin: 0.3rem 0; }
+            input { width: 60px; }
+            button { margin-top: 1rem; padding: 0.5rem 1rem; }
+            .result { margin-top: 1rem; font-weight: bold; color: #2b7a0b; }
+            .error { color: red; font-weight: bold; }
+            h1 {color: blue;}
         </style>
     </head>
     <body>
       <h1>Prédiction du Diabète</h1>
-      <p>Remplissez les champs et cliquez sur "Prédire".</p>
+      <p>Remplissez les champs puis cliquez sur "Prédire".</p>
 
-      <label>Age: <input id="age" type="number" value="30"></label><br>
-      <label>Gender (0=femme,1=homme): <input id="gender" type="number" value="1"></label><br>
-      <label>Polyuria: <input id="polyuria" type="number" value="0"></label><br>
-      <label>Polydipsia: <input id="polydipsia" type="number" value="0"></label><br>
-      <label>Sudden weight loss: <input id="sudden_weight_loss" type="number" value="0"></label><br>
-      <label>Weakness: <input id="weakness" type="number" value="0"></label><br>
-      <label>Polyphagia: <input id="polyphagia" type="number" value="0"></label><br>
-      <label>Genital thrush: <input id="genital_thrush" type="number" value="0"></label><br>
-      <label>Visual blurring: <input id="visual_blurring" type="number" value="0"></label><br>
-      <label>Itching: <input id="itching" type="number" value="0"></label><br>
-      <label>Irritability: <input id="irritability" type="number" value="0"></label><br>
-      <label>Delayed healing: <input id="delayed_healing" type="number" value="0"></label><br>
-      <label>Partial paresis: <input id="partial_paresis" type="number" value="0"></label><br>
-      <label>Muscle stiffness: <input id="muscle_stiffness" type="number" value="0"></label><br>
-      <label>Alopecia: <input id="alopecia" type="number" value="0"></label><br>
-      <label>Obesity: <input id="obesity" type="number" value="0"></label><br>
+        <label>Age: <input id="age" type="number" value="30"></label><br>
+        <label>Gender:<select id="gender"><option value="0">Femme</option><option value="1">Homme</option></select></label><br>
+        <label>Polyuria:
+        <select id="polyuria">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Polydipsia:
+        <select id="polydipsia">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Sudden weight loss:
+        <select id="sudden_weight_loss">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Weakness:
+        <select id="weakness">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Polyphagia:
+        <select id="polyphagia">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Genital thrush:
+        <select id="genital_thrush">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Visual blurring:
+        <select id="visual_blurring">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Itching:
+        <select id="itching">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Irritability:
+        <select id="irritability">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Delayed healing:
+        <select id="delayed_healing">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Partial paresis:
+        <select id="partial_paresis">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Muscle stiffness:
+        <select id="muscle_stiffness">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Alopecia:
+        <select id="alopecia">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
+        <label>Obesity:
+        <select id="obesity">
+        <option value="0">Non</option>
+        <option value="1">Oui</option>
+        </select>
+        </label><br>
+
 
       <button onclick="predict()">Prédire</button>
 
@@ -166,7 +253,7 @@ def home():
           });
 
           const result = await response.json();
-          document.getElementById('result').innerText = 'Résultat: ' + result.prediction + 
+          document.getElementById('result').innerText = 'Votre Résultat: ' + result.prediction + 
             ' (Probabilité: ' + result.probability_positive + ')';
         }
       </script>
