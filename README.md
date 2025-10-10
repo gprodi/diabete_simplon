@@ -94,6 +94,17 @@ Le projet est réalisé en **groupe**, en utilisant **Python** et la bibliothèq
 
 ---
 
+## ✅ Résumé rapide ML3
+| Étape | Action | Commande |
+|-------|--------|-----------|
+| 1 | Installer | `pip install fastapi uvicorn ` |
+| 2 | Sauvegarder modèle | `joblib.dump(model, "model/modele_diabete_XX.pkl")` |
+| 3 | Créer `app.py` | (code ci-dessus) |
+| 4 | Lancer serveur | `uvicorn app:app --reload` |
+| 5 | Tester sur `/docs` | dans ton navigateur |
+
+---
+
 ## ✅ Livrables attendus
 - Notebook : `eda_<initiales>_diabetes.ipynb`  
 - Dataset nettoyé : `diabetes_clean.csv`

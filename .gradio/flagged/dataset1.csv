@@ -1,0 +1,5 @@
+Age,Glucose,Insulin,BMI,Blood Pressure,Irritability,Obesity,Partial Paresis,Alopecia,Delayed Healing,Weakness,Polyuria,Polyphagia,Itching,Sudden Weight Loss,Gender (0 ou 1),Polydipsia,Genital Thrush,Visual Blurring,Muscle Stiffness,Résultat de la prédiction,timestamp
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,,2025-10-10 11:09:42.810831
+0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,"Prediction: 1
+Probability: 0.558
+Decision: Diabète détecté",2025-10-10 11:10:04.022501
