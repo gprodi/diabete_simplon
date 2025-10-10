@@ -12,12 +12,14 @@ Assurez-vous d'avoir Python 3.8+ et d'installer les dépendances :
 
 ```bash
 pip install -r requirements.txt
+```
 
 ## 2. Lancement du Service
 Utilisez uvicorn pour lancer le serveur :
 
 ```bash
 uvicorn app:app --reload
+```
 
 Le service sera accessible à l'adresse : http://127.0.0.1:8000
 La documentation interactive de l'API est disponible ici : http://127.0.0.1:8000/docs
@@ -30,6 +32,7 @@ Vérifie l'état de l'API et le chargement du modèle.
 
 curl -X 'GET' 'http://127.0.0.1:8000/health'
 # Réponse OK : {"status":"ok","model_loaded":true}
+```
 
 ### 3.2. Endpoint de Prédiction : /predict (POST)
 Reçoit les caractéristiques d'un patient en JSON et renvoie la prédiction.
@@ -62,7 +65,7 @@ curl -X 'POST' 'http://127.0.0.1:8000/predict' \
 }'
 Exemple 2 : Cas Positif (OK)
 Patient d'âge moyen avec Polyurie et Polydipsie.
-
+```
 ```bash
 curl -X 'POST' 'http://127.0.0.1:8000/predict' \
 -H 'Content-Type: application/json' \
@@ -86,29 +89,11 @@ curl -X 'POST' 'http://127.0.0.1:8000/predict' \
 }'
 Exemple 3 : Cas Erreur (Code 422 - Validation Pydantic)
 Tentative d'envoyer 'Yes' au lieu de 1 pour polyuria.
-
+```
 ```bash
-curl -X POST "http://127.0.0.1:8000/predict" 
--H "Content-Type: application/json" 
--d "{
-    \"age\": 55, 
-    \"gender\": 1, 
-    \"polyuria\": \"NON\", 
-    \"polydipsia\": 1, 
-    \"sudden_weight_loss\": 1, 
-    \"weakness\": 1, 
-    \"polyphagia\": 1, 
-    \"genital_thrush\": 1, 
-    \"visual_blurring\": 1, 
-    \"itching\": 1, 
-    \"irritability\": 0, 
-    \"delayed_healing\": 1, 
-    \"partial_paresis\": 1, 
-    \"muscle_stiffness\": 0, 
-    \"alopecia\": 1, 
-    \"obesity\": 0
-    }"
+curl -X POST 'http://127.0.0.1:8000/predict' -H 'Content-Type: application/json' -d '{"age": 55, "gender": 1, "polyuria": "NON", "polydipsia": 1, "sudden_weight_loss": 1, "weakness": 1, "polyphagia": 1, "genital_thrush": 1, "visual_blurring": 1, "itching": 1, "irritability": 0, "delayed_healing": 1, "partial_paresis": 1, "muscle_stiffness": 0, "alopecia": 1, "obesity": 0}'
 # Réponse : Code 422 Unprocessable Entity avec message d'erreur clair.
+```
 
 Rappel éthique :
 C’est un exemple éducatif, pas un vrai outil médical.
