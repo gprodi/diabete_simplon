@@ -28,7 +28,7 @@ Vérifie l'état de l'API et le chargement du modèle.
 
 ```bash
 
-curl -X 'GET' '[http://127.0.0.1:8000/health](http://127.0.0.1:8000/health)'
+curl -X 'GET' 'http://127.0.0.1:8000/health'
 # Réponse OK : {"status":"ok","model_loaded":true}
 
 ### 3.2. Endpoint de Prédiction : /predict (POST)
