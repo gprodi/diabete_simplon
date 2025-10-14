@@ -80,7 +80,7 @@ http://localhost:7860/
 
 4. Vérifier l’API :
 
-http://localhost:8000/predict
+http://localhost:8000/
 
 ## Commandes utiles
 ----------------
