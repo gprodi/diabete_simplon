@@ -153,11 +153,11 @@ if submitted:
         if pred == "Positive":
             # Si c'est positif, on affiche la probabilité positive
             prob_display = prob_positive * 100
-            pred_label = "Probabilité que la prédiction soit juste :"
+            pred_label = "Probabilité :"
         elif pred == "Negative":
             # Si c'est négatif, on affiche (1 - probabilité positive)
             prob_display = (1 - prob_positive) * 100
-            pred_label = "Probabilité que la prédiction soit juste :"
+            pred_label = "Probabilité :"
         else:
             # Cas par défaut ou erreur
             prob_display = prob_positive * 100
