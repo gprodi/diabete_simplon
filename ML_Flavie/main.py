@@ -1,11 +1,8 @@
 import gradio as gr
 import requests
 
-
-# === URL de l'API ===
 API_URL = "http://127.0.0.1:8000/predict"
 
-# === Fonction de prédiction via API ===
 def predict_diabete_api(age, gender, polyuria, polydipsia, sudden_weight_loss, weakness, polyphagia,
                         genital_thrush, visual_blurring, itching, irritability, delayed_healing,
                         partial_paresis, muscle_stiffness, alopecia, obesity):
@@ -40,8 +37,8 @@ def predict_diabete_api(age, gender, polyuria, polydipsia, sudden_weight_loss, w
         decision = "⚠️ Diabète détecté" if pred == 1 else "✅ Aucun diabète détecté"
 
         return f"""
-        <div style='padding:20px; text-align:center; border-radius:15px; background:#fff; 
-                    box-shadow:0 5px 20px rgba(0,0,0,0.1);'>
+        <div style='padding:20px; text-align:center; border-radius:15px; 
+                    background:#fff; box-shadow:0 5px 20px rgba(0,0,0,0.1);'>
             <h2>Résultat: {pred_text}</h2>
             <p>Probabilité: {proba:.2f}%</p>
             <p style='color:{color}; font-weight:bold;'>{decision}</p>
@@ -50,27 +47,77 @@ def predict_diabete_api(age, gender, polyuria, polydipsia, sudden_weight_loss, w
     except Exception as e:
         return f"<div style='color:red; font-weight:bold;'>❌ Erreur : {e}</div>"
 
-# === Interface Gradio ===
+# ==== Interface Gradio ====
 with gr.Blocks(css="""
-body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
-.gr-button { background-color:#0078D7 !important; color:white !important; border-radius:12px !important; font-weight:bold !important; }
-.gr-button:hover { background-color:#005fa3 !important; }
-.gr-slider, .gr-radio, .gr-checkbox { margin-bottom:8px !important; }
+    body { background: #f5f5f5; font-family: 'Segoe UI', sans-serif; }
+    h1 { color: #ff6600; }
+    .gr-button { background-color: #ff6600 !important; color:white !important; border-radius:12px !important; }
 """) as demo:
 
-    gr.HTML("<h1 style='text-align:center; color:#0078D7;'>🩺 Prédiction du Diabète</h1>")
+    # Header stylé
+    gr.HTML("""
+<div style="
+    text-align:center;
+    margin-bottom:30px;
+    padding:20px;
+    background: linear-gradient(90deg, #ff9900, #ffcc66);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+">
+    <h1 style="
+        font-size:3em;
+        color:white;
+        text-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+        margin:0;
+    ">
+        🩺 Prédiction du Diabète
+    </h1>
+    <p style="
+        font-size:1.2em;
+        color:white;
+        margin-top:10px;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    ">
+        Remplissez les informations pour obtenir une prédiction rapide et stylée
+    </p>
+</div>
+""")
 
+    # Formulaire en deux colonnes
     with gr.Row():
-        # ===== Informations Patient =====
+        # --- Informations Patient ---
         with gr.Column():
-            gr.HTML("<h3>Informations Patient</h3>")
-            age = gr.Slider(label="Âge", minimum=0, maximum=120, value=45)
+            gr.HTML("""
+            <div style='
+                padding:15px;
+                border-radius:15px;
+                background:#fff3e0;
+                box-shadow:0 5px 15px rgba(0,0,0,0.1);
+                margin-bottom:15px;
+                text-align:center;
+            '>
+                <h3 style='color:#ff6600;'>Informations Patient</h3>
+            </div>
+            """)
+            age = gr.Slider(label="Âge", minimum=0, maximum=120, value=45, step=1)
             gender = gr.Radio(label="Genre", choices=["Homme", "Femme"], value="Homme")
-            gr.Image("assets/Traitements_du_diabète.jpg", type="filepath", label="Illustration Patient")  
+            gr.Image("assets/Traitements_du_diabète.jpg", type="filepath", label="Illustration Patient")
 
-        # ===== Symptômes =====
+        # --- Symptômes ---
         with gr.Column():
-            gr.HTML("<h3>Symptômes</h3>")
+            gr.HTML("""
+            <div style='
+                padding:15px;
+                border-radius:15px;
+                background:#fff8e1;
+                box-shadow:0 5px 15px rgba(0,0,0,0.1);
+                margin-bottom:15px;
+                text-align:center;
+            '>
+                <h3 style='color:#ff9900;'>Symptômes</h3>
+            </div>
+            """)
             polyuria = gr.Checkbox(label="Polyurie", value=False)
             polydipsia = gr.Checkbox(label="Polydipsie", value=False)
             sudden_weight_loss = gr.Checkbox(label="Perte de poids soudaine", value=False)
@@ -86,6 +133,7 @@ body { background: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
             alopecia = gr.Checkbox(label="Alopécie", value=False)
             obesity = gr.Checkbox(label="Obésité", value=False)
 
+    # Bouton et sortie
     predict_btn = gr.Button("🔍 Lancer la Prédiction")
     output = gr.HTML()
 
