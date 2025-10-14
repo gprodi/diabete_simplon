@@ -1,0 +1,17 @@
+# .streamlit/config.toml
+
+[theme]
+# Couleur principale de la barre latérale, du bouton Soumettre, etc.
+primaryColor="#FF4B4B" # Un rouge vif (à personnaliser) 
+
+# Couleur de fond principale (ex: pour un thème sombre personnalisé)
+backgroundColor="#000000ff" 
+
+# Couleur des blocs (sidebars, containers)
+secondaryBackgroundColor="#262730" 
+
+# Couleur du texte
+textColor="#FAFAFA" 
+
+# Famille de police
+font="sans serif"
