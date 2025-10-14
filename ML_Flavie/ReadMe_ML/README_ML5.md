@@ -65,12 +65,14 @@ ML_Flavie/
 
 1. Construire et lancer les containers :
 
+```bash
 docker compose up --build
-
+```
 2. Vérifier les containers :
 
+```bash
 docker ps -a
-
+```
 - ml_flavie-api-1 → API FastAPI
 - ml_flavie-app-1 → Gradio
 
@@ -86,18 +88,18 @@ http://localhost:8000/
 ----------------
 
 - Arrêter les containers :
-
+```bash
 docker compose down
-
+```
 - Voir les logs d’un container :
-
+```bash
 docker logs -f ml_flavie-app-1
 docker logs -f ml_flavie-api-1
-
+```
 - Rebuild et relancer :
-
+```bash
 docker compose up --build
-
+```
 ## Résumé
 ------
 
