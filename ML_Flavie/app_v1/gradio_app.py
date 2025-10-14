@@ -81,8 +81,8 @@ def predict_diabete_api_checked(
             text-align: center;
             font-family: "Segoe UI", sans-serif;
             transition: transform 0.4s, box-shadow 0.4s;
-        ' onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 25px 50px rgba(0,0,0,0.2)';"
-          onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.15)';">
+            ' onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 25px 50px rgba(0,0,0,0.2)';"
+            onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 15px 35px rgba(0,0,0,0.15)';">
             <h2 style='color: #333; margin-bottom:20px;'>Résultat de la prédiction</h2>
             <p style='font-size:18px; color:#333; margin:6px 0;'>👤 <b>Prédiction :</b> {pred_text}</p>
             <p style='font-size:18px; color:#333; margin:6px 0;'>📊 <b>Probabilité :</b> {proba:.2f}%</p>

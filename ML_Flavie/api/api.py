@@ -1,9 +1,14 @@
 from fastapi import FastAPI
 from pydantic import BaseModel, Field, conint
 import joblib
+import os
+
+
 
 # === Charger le modèle ===
-model = joblib.load("model/modele_diabete_XX.pkl")
+# chemin absolu vers le modèle
+model_path = os.path.join(os.path.dirname(__file__), "..", "model", "modele_diabete_XX.pkl")
+model = joblib.load(model_path)
 
 app = FastAPI(title="API Prédiction Diabète")
 
@@ -44,3 +49,12 @@ def predict(patient: PatientData):
         }
     except Exception as e:
         return {"error": str(e)}
+
+@app.get("/")
+def home():
+    return {"message": "Ceci est mon main"}
+
+@app.get("/predict")
+def predict(value: float):
+    # ici tu peux appeler ton modèle
+    return {"result": value * 2}
