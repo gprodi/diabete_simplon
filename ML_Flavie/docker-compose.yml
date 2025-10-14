@@ -6,8 +6,9 @@ services:
       dockerfile: Dockerfile.api
     ports:
       - "8000:8000"
-    environment:
-      - PORT=8000
+    volumes:
+      - ./api:/app
+      - ./model:/model
 
   app:
     build:
@@ -19,3 +20,7 @@ services:
       - API_BASE_URL=http://api:8000/predict
     depends_on:
       - api
+    volumes:
+      - ./app:/app
+      - ./model:/model
+      - ./assets:/assets

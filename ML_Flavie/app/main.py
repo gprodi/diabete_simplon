@@ -1,7 +1,22 @@
 import gradio as gr
 import requests
+import joblib
+import os
 
-API_URL = "http://127.0.0.1:8000/predict"
+# Chargement du modèle
+model_path = "/model/modele_diabete_XX.pkl"  # chemin correct dans le conteneur
+model = joblib.load(model_path)
+
+# Récupère l'URL de l'API depuis la variable d'environnement
+API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000/predict")
+
+def predict(input_data):
+    try:
+        response = requests.post(API_BASE_URL, json={"data": input_data})
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        return f"Erreur API : {e}"
 
 def predict_diabete_api(age, gender, polyuria, polydipsia, sudden_weight_loss, weakness, polyphagia,
                         genital_thrush, visual_blurring, itching, irritability, delayed_healing,
@@ -26,7 +41,7 @@ def predict_diabete_api(age, gender, polyuria, polydipsia, sudden_weight_loss, w
             "alopecia": int(alopecia),
             "obesity": int(obesity)
         }
-        response = requests.post(API_URL, json=data, timeout=5)
+        response = requests.post(API_BASE_URL, json=data, timeout=5)
         response.raise_for_status()
         result = response.json()
 
@@ -102,7 +117,7 @@ with gr.Blocks(css="""
             """)
             age = gr.Slider(label="Âge", minimum=0, maximum=120, value=45, step=1)
             gender = gr.Radio(label="Genre", choices=["Homme", "Femme"], value="Homme")
-            gr.Image("assets/Traitements_du_diabète.jpg", type="filepath", label="Illustration Patient")
+            gr.Image("../assets/Traitements_du_diabète.jpg", type="filepath", label="Illustration Patient")
 
         # --- Symptômes ---
         with gr.Column():
@@ -146,4 +161,4 @@ with gr.Blocks(css="""
     )
 
 # Lancer l’interface
-demo.launch()
+demo.launch(server_name="0.0.0.0", server_port=7860)
