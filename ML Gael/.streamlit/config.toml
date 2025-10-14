@@ -5,7 +5,7 @@
 primaryColor="#FF4B4B" # Un rouge vif (à personnaliser) 
 
 # Couleur de fond principale (ex: pour un thème sombre personnalisé)
-backgroundColor="#000000ff" 
+backgroundColor="#7c0a0aff" 
 
 # Couleur des blocs (sidebars, containers)
 secondaryBackgroundColor="#262730" 

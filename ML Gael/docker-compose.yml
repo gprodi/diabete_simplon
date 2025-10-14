@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  # 1. Service API (FastAPI)
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: ml_api
+    restart: always
+    # Charge les variables d'environnement définies dans le fichier .env
+    env_file:
+      - .env
+    # Mappe le port interne 8000 (PORT dans .env) au port 8000 de l'hôte pour l'accès externe.
+    ports:
+      - "8000:8000"
+    networks:
+      - app_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Service Application Web (Streamlit)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    container_name: streamlit_app
+    restart: always
+    # Charge les variables d'environnement (y compris API_URL=http://api:8000)
+    env_file:
+      - .env
+    # Dépend de l'API pour s'assurer que l'API démarre en premier
+    depends_on:
+      api:
+        condition: service_healthy # Attendre que l'API soit considérée comme 'saine'
+    # Mappe le port interne 8501 (Streamlit) au port 8501 de l'hôte.
+    ports:
+      - "8501:8501"
+    networks:
+      - app_network
+
+# Définition du réseau partagé
+networks:
+  app_network:
+    driver: bridge

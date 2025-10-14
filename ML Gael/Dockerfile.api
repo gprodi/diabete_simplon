@@ -1,0 +1,25 @@
+# Utilise une image Python légère comme base
+FROM python:3.11-slim
+
+# Installe 'curl' nécessaire pour le healthcheck de Docker Compose
+# et les autres dépendances de construction.
+RUN apt-get update && apt-get install -y \
+    curl \
+    --no-install-recommends && rm -rf /var/lib/apt/lists/*
+
+# Définit le répertoire de travail
+WORKDIR /app
+
+# Copie le fichier de dépendances et installe les dépendances
+COPY api/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copie le code de l'API
+COPY api/app.py .
+
+# AJOUT CRUCIAL : Copie du fichier modèle depuis le dossier local 'api/' vers le dossier de travail '/app' du conteneur.
+COPY api/modele_diabete_XX.pkl .
+
+# Commande pour lancer Uvicorn (l'application FastAPi)
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+
