@@ -105,5 +105,4 @@ docker compose up --build
 - Les volumes permettent de partager le modèle .pkl.
 - Gradio écoute sur 0.0.0.0 pour Docker, mais le navigateur doit utiliser localhost.
 - L’API doit être disponible avant l’interface Gradio pour éviter les erreurs de connexion.
-- Message clair dans le terminal pour Gradio :
-  ✅ Gradio est prêt ! Ouvrez votre navigateur sur : http://localhost:7860/
+  
