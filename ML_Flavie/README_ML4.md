@@ -34,3 +34,23 @@ Cette application web permet d’envoyer les données d’un patient à l’API 
    - API non disponible → message clair
    - Temps de réponse > 5s → message d’avertissement
 
+## ⚡ Fonctionnalités
+- 🔹 Saisie des informations du patient : âge et genre  
+- 🔹 Sélection des symptômes via des cases à cocher  
+- 🔹 Affichage du résultat avec probabilité et décision stylée  
+- 🔹 Interface compacte, responsive et esthétique  
+
+---
+
+## 🖼️ Interface
+- **Informations Patient** :  
+  - Âge via un **slider** de 0 à 120  
+  - Genre via un **radio button**  
+  - Illustration facultative  
+
+- **Symptômes** :  
+  - Polyurie, Polydipsie, Perte de poids soudaine, Faiblesse, Polyphagie, Candidose génitale, Vision floue, Démangeaisons, Irritabilité, Guérison lente, Parésie partielle, Raideur musculaire, Alopécie, Obésité  
+  - Chaque symptôme peut être coché individuellement
+
+---
+
