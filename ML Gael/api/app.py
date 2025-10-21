@@ -1,6 +1,8 @@
 # app.py
 
 # --- Imports ---
+import uvicorn
+import os
 import joblib
 import pandas as pd
 from fastapi import FastAPI, HTTPException
@@ -53,7 +55,7 @@ class PatientFeatures(BaseModel):
 
 # --- Définition des Endpoints ---
 
-@app.get("/health")
+@app.get("/health", tags=["Health Check"])
 def health_check():
     """
     Endpoint de santé pour vérifier si le service est opérationnel.
@@ -61,7 +63,7 @@ def health_check():
     status = "ok" if model_pipeline else "error - model not loaded"
     return {"status": status, "model_loaded": model_pipeline is not None}
 
-@app.post("/predict")
+@app.post("/predict", tags=["Prediction"])
 def predict_diabete(patient: PatientFeatures):
     """
     Reçoit les caractéristiques d'un patient et renvoie la prédiction de diabète.

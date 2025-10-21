@@ -23,11 +23,11 @@ Assurez-vous d'avoir installé les outils suivants sur votre machine :
     #### 3.2. Lancement du Projet
     Cette commande démarre les deux services (api et app) et les connecte :
     - docker compose up
-ou pour lancer en arrière-plan :
-- docker compose up -d
+    ou pour lancer en arrière-plan :
+    - docker compose up -d
 
-#### 3.3. Arrêt des ServicesPour arrêter et nettoyer les conteneurs et le réseau :
-- docker compose down
+    #### 3.3. Arrêt des ServicesPour arrêter et nettoyer les conteneurs et le réseau :
+    - docker compose down
   
 ## 4.Accès
 Une fois que docker compose up a démarré les deux services (cela peut prendre quelques secondes), vous pouvez y accéder via les liens suivants :
