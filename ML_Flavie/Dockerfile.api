@@ -1,5 +1,7 @@
+# Utiliser une image légère Python
 FROM python:3.13-slim
 
+# Définir le dossier de travail
 WORKDIR /app
 
 # Copier le code API et le modèle

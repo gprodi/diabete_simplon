@@ -7,7 +7,7 @@ import os
 
 # === Charger le modèle ===
 # chemin absolu vers le modèle
-model_path = '/model/modele_diabete_XX.pkl'
+model_path = 'model/modele_diabete_XX.pkl'
 model = joblib.load(model_path)
 
 app = FastAPI(title="API Prédiction Diabète")
