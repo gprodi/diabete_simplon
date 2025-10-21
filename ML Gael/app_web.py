@@ -8,7 +8,7 @@ import time
 # --- 0. Configuration de l'environnement ---
 # Charge les variables du fichier .env
 load_dotenv()
-API_BASE_URL = os.getenv("API_URL")
+API_BASE_URL = os.getenv("API_URL", "http://localhost:8000")
 
 
 # --- DEBUG: Vérifiez la variable d'environnement ---
