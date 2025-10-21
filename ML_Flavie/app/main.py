@@ -4,11 +4,11 @@ import joblib
 import os
 
 # Chargement du modèle
-model_path = "/model/modele_diabete_XX.pkl"  # chemin correct dans le conteneur
+model_path = "./model/modele_diabete_XX.pkl"
 model = joblib.load(model_path)
 
 # Récupère l'URL de l'API depuis la variable d'environnement
-API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000/predict")
+API_BASE_URL = os.getenv("API_BASE_URL", "http://api:8000/predict")
 
 def predict(input_data):
     try:
