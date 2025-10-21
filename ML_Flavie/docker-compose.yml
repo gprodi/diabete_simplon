@@ -1,40 +1,18 @@
-version: "3.9"
 services:
   api:
     build:
-      context: .
+      context: .                 # racine ML_Flavie
       dockerfile: Dockerfile.api
+    volumes:
+      - ./model:/model
     ports:
       - "8000:8000"
-    volumes:
-      - ./api:/app
-      - ./model:/model
-    networks:
-      - app_network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
-  app:
+  gradio:
     build:
-      context: .
+      context: .                 # racine ML_Flavie
       dockerfile: Dockerfile.app
+    volumes:
+      - ./model:/model
     ports:
       - "7860:7860"
-    networks:
-      - app_network
-    environment:
-      - API_BASE_URL=http://api:8000/predict
-    depends_on:
-      - api
-    volumes:
-      - ./app:/app
-      - ./model:/model
-      - ./assets:/assets
-      
-# Définition du réseau partagé
-networks:
-  app_network:
-    driver: bridge

@@ -1,15 +1,18 @@
-# Base Python
 FROM python:3.13-slim
 
-# Répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Copier le code de l'application
-COPY ./app /app
+# Copier le code Gradio
+COPY app/ /app
+COPY assets/ /assets
+COPY model/ /app/model/
+COPY requirements.txt /app
 
 # Installer les dépendances
-COPY requirements.txt /app
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
 
-# Lancer main.py et rester actif après son exécution
-CMD ["bash", "-c", "python main.py && tail -f /dev/null"]
+# Exposer le port Gradio
+EXPOSE 7860
+
+# Lancer Gradio
+CMD ["python", "main.py"]

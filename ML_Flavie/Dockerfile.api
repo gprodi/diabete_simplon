@@ -1,9 +1,21 @@
-# Dockerfile.api
 FROM python:3.13-slim
+
 WORKDIR /app
+
+# Copier le code API et le modèle
 COPY api/ .   
-COPY model/ ./model/                
+COPY assets/ . 
+COPY model/ ./model/    
+COPY model/ /app/model/  
+COPY app/ /app
+COPY assets/ /assets       
 COPY requirements.txt .     
-RUN pip install --no-cache-dir -r requirements.txt
+
+# Installer les dépendances
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+# Exposer le port FastAPI
 EXPOSE 8000
+
+# Lancer FastAPI
 CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
