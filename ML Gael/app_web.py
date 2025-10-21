@@ -2,22 +2,20 @@ import streamlit as st
 import requests
 import json
 import os
-from dotenv import load_dotenv
 import time
 
 # --- 0. Configuration de l'environnement ---
-# Charge les variables du fichier .env
-load_dotenv()
-API_BASE_URL = os.getenv("API_URL", "http://localhost:8000")
+
+API_BASE_URL = os.getenv("API_BASE_URL", "http://127.0.0.1:8000")
 
 
 # --- DEBUG: Vérifiez la variable d'environnement ---
-if not API_BASE_URL:
-    st.error("ERREUR DE CONFIGURATION: La variable API_URL n'a pas été trouvée dans le fichier .env.")
-    st.stop() # Arrête l'exécution pour que l'erreur soit visible
-else:
-    # Affiche l'URL si elle est trouvée 
-    st.sidebar.success(f"API cible : {API_BASE_URL}") 
+# if not API_BASE_URL:
+#     st.error("ERREUR DE CONFIGURATION: La variable API_URL n'a pas été trouvée dans le fichier .env.")
+#     st.stop() # Arrête l'exécution pour que l'erreur soit visible
+# else:
+#     # Affiche l'URL si elle est trouvée 
+#     st.sidebar.success(f"API cible : {API_BASE_URL}") 
 # --- FIN DEBUG ---
 
 # --- 1. Définition du Schéma de l'API (Contrat d'E/S) ---
