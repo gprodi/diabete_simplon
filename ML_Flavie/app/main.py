@@ -7,8 +7,13 @@ import os
 model_path = "./model/modele_diabete_XX.pkl"
 model = joblib.load(model_path)
 
+# ---------------------------
+# 1️⃣ Récupération de l'URL de l'API depuis Render
+# ---------------------------
+API_BASE_URL = os.environ.get("API_BASE_URL")  # Exemple : "https://ml-flavie-api.onrender.com"
+PREDICT_ENDPOINT = f"{API_BASE_URL}/predict"
 # Récupère l'URL de l'API depuis la variable d'environnement
-API_BASE_URL = os.getenv("API_BASE_URL", "http://api:8000/predict")
+# API_BASE_URL = os.getenv("API_BASE_URL", "http://api:8000/predict")
 
 def predict(input_data):
     try:
