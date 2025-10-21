@@ -7,6 +7,8 @@ services:
       - ./model:/model
     ports:
       - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/model/modele_diabete_XX.pkl
 
   gradio:
     build:
@@ -16,3 +18,7 @@ services:
       - ./model:/model
     ports:
       - "7860:7860"
+    environment:
+      - API_BASE_URL=http://api:8000/predict
+    depends_on:
+      - api
