@@ -64,3 +64,6 @@ jobs:
           app-name: 'prediction-diabete'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3E8F2C8AEF54DB5A4BFA8D15975065D }}
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+          # ⭐ AJOUTEZ CETTE LIGNE CI-DESSOUS ⭐
+          working-directory: 'ML Gael'
