@@ -31,6 +31,7 @@ jobs:
           python -m venv antenv
           source antenv/bin/activate
           pip install -r requirements.txt
+        working-directory: 'ML Gael/api' # <-- Cible ML Gael/api
                 
       # By default, when you enable GitHub CI/CD integration through the Azure portal, the platform automatically sets the SCM_DO_BUILD_DURING_DEPLOYMENT application setting to true. This triggers the use of Oryx, a build engine that handles application compilation and dependency installation (e.g., pip install) directly on the platform during deployment. Hence, we exclude the antenv virtual environment directory from the deployment artifact to reduce the payload size. 
       - name: Upload artifact for deployment jobs
@@ -64,6 +65,4 @@ jobs:
           app-name: 'prediction-diabete'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3E8F2C8AEF54DB5A4BFA8D15975065D }}
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
-          # ⭐ AJOUTEZ CETTE LIGNE CI-DESSOUS ⭐
-          working-directory: 'ML Gael'
+          package: 'ML Gael/api'
