@@ -58,6 +58,15 @@ jobs:
         with:
           name: python-app
       
+# 💥 NOUVELLE ÉTAPE 1 : ARRÊTER l'application web pour déverrouiller les fichiers
+      - name: Arrêter l'App Service
+        uses: azure/cli@v1
+        with:
+          inline-script: |
+            az webapp stop --name streamlit-diabete --resource-group gprodilailoRG
+
+
+
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
@@ -66,3 +75,10 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FD7A1F7C77ED4F4AA4CFDD773B3D9AF2 }}
           package: 'ML_Gael'
+
+          # ✅ NOUVELLE ÉTAPE 2 : DÉMARRER l'application web
+      - name: Démarrer l'App Service
+        uses: azure/cli@v1
+        with:
+          inline-script: |
+            az webapp start --name streamlit-diabete --resource-group gprodilailoRG

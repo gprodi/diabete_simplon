@@ -57,6 +57,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
+
+# Nouvelle étape 1 : ARRÊTER l'application web pour déverrouiller les fichiers
+      - name: Arrêter l'App Service
+        uses: azure/cli@v1
+        with:
+          # Assurez-vous que l'identité managée est déjà authentifiée pour cette étape
+          inline-script: |
+            az webapp stop --name prediction-diabete --resource-group gprodilailoRG
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -66,3 +74,11 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B3E8F2C8AEF54DB5A4BFA8D15975065D }}
           package: 'ML_Gael/api'
+
+
+          # Nouvelle étape 2 : DÉMARRER l'application web
+      - name: Démarrer l'App Service
+        uses: azure/cli@v1
+        with:
+          inline-script: |
+            az webapp start --name prediction-diabete --resource-group gprodilailoRG
