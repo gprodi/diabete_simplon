@@ -62,7 +62,7 @@ jobs:
       - name: Arrêter l'App Service
         uses: azure/cli@v1
         with:
-          inline-script: |
+          inlinescript: |
             az webapp stop --name streamlit-diabete --resource-group gprodilailoRG
 
 
@@ -80,5 +80,5 @@ jobs:
       - name: Démarrer l'App Service
         uses: azure/cli@v1
         with:
-          inline-script: |
+          inlinescript: |
             az webapp start --name streamlit-diabete --resource-group gprodilailoRG

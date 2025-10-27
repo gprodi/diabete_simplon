@@ -63,7 +63,7 @@ jobs:
         uses: azure/cli@v1
         with:
           # Assurez-vous que l'identité managée est déjà authentifiée pour cette étape
-          inline-script: |
+          inlinescript: |
             az webapp stop --name prediction-diabete --resource-group gprodilailoRG
       
       - name: 'Deploy to Azure Web App'
@@ -80,5 +80,5 @@ jobs:
       - name: Démarrer l'App Service
         uses: azure/cli@v1
         with:
-          inline-script: |
+          inlineScript: |
             az webapp start --name prediction-diabete --resource-group gprodilailoRG
