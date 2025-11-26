@@ -1,0 +1,43 @@
+# Render.com Deployment Configuration
+# Documentation: https://render.com/docs/blueprint-spec
+
+services:
+  # Service API FastAPI
+  - type: web
+    name: diabetes-prediction-api
+    env: docker
+    dockerfilePath: ./ML5_Orchestration_Docker/api/Dockerfile
+    dockerContext: ./ML5_Orchestration_Docker/api
+    plan: free
+    region: frankfurt
+    branch: main
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHONUNBUFFERED
+        value: 1
+      - key: MODEL_PATH
+        value: ./model/best_model.pkl
+
+  # Service Application Streamlit
+  - type: web
+    name: diabetes-prediction-app
+    env: docker
+    dockerfilePath: ./ML5_Orchestration_Docker/app/Dockerfile
+    dockerContext: ./ML5_Orchestration_Docker/app
+    plan: free
+    region: frankfurt
+    branch: main
+    autoDeploy: true
+    envVars:
+      - key: STREAMLIT_SERVER_PORT
+        value: 8501
+      - key: API_URL
+        fromService:
+          name: diabetes-prediction-api
+          type: web
+          property: host
+      - key: PYTHONUNBUFFERED
+        value: 1

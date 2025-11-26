@@ -1,0 +1,14 @@
+#Ignorer les dépendances Python
+.venv
+__pycache
+*.pyc
+
+#Fichiers de configuration locaux
+.git
+.gitignore
+.DS_Store
+*.log
+
+#Dossiers de données
+data/
+model/

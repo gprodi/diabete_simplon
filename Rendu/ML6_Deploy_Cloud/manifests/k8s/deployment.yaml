@@ -1,0 +1,110 @@
+# Kubernetes Deployment Manifests
+
+## API Deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diabetes-api
+  labels:
+    app: diabetes-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: diabetes-api
+  template:
+    metadata:
+      labels:
+        app: diabetes-api
+    spec:
+      containers:
+      - name: api
+        image: your-registry/diabetes-api:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        - name: MODEL_PATH
+          value: "./model/best_model.pkl"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diabetes-api-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: diabetes-api
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000
+---
+# App Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: diabetes-app
+  labels:
+    app: diabetes-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: diabetes-app
+  template:
+    metadata:
+      labels:
+        app: diabetes-app
+    spec:
+      containers:
+      - name: app
+        image: your-registry/diabetes-app:latest
+        ports:
+        - containerPort: 8501
+        env:
+        - name: API_URL
+          value: "http://diabetes-api-service"
+        - name: PYTHONUNBUFFERED
+          value: "1"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: diabetes-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: diabetes-app
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8501
