@@ -1,7 +1,6 @@
 # app.py
 
 # --- Imports ---
-import uvicorn
 import os
 import joblib
 import pandas as pd
@@ -12,19 +11,20 @@ import numpy as np
 # --- Configuration et Chargement du Modèle ---
 
 # Nom du fichier modèle (doit exister dans le même répertoire)
-MODEL_PATH = 'modele_diabete_XX.pkl' 
 # 🚨 N'oubliez pas de remplacer XX par vos initiales !
+MODEL_PATH = 'modele_diabete_XX.pkl' 
 
+# 🔑 CHARGEMENT DU MODÈLE À L'INITIALISATION (UNE SEULE FOIS)
 try:
     # Charger le pipeline complet (préprocesseur + modèle)
     model_pipeline = joblib.load(MODEL_PATH)
     print(f"Modèle chargé avec succès depuis {MODEL_PATH}")
 except FileNotFoundError:
     print(f"ERREUR: Le fichier modèle {MODEL_PATH} est introuvable. Assurez-vous de le placer dans le répertoire de l'API.")
-    # Permet à l'application de démarrer même sans modèle, mais toutes les requêtes /predict échoueront.
+    # Le service sera disponible, mais l'endpoint /predict renverra une erreur 503.
     model_pipeline = None 
 
-# Initialisation de l'API
+# Initialisation de l'API (l'objet 'app' est ce que Gunicorn cherchera)
 app = FastAPI(
     title="API de Prédiction du Diabète",
     description="Service de classification basé sur un modèle RandomForest.",
@@ -34,7 +34,6 @@ app = FastAPI(
 # --- Définition du Schéma de Données (Pydantic) ---
 
 # Pydantic garantit que les données reçues correspondent à ce format.
-# Cela gère les "erreurs si une valeur manque ou est incorrecte" (Critère de performance).
 class PatientFeatures(BaseModel):
     age: int
     gender: int
@@ -67,8 +66,8 @@ def health_check():
 def predict_diabete(patient: PatientFeatures):
     """
     Reçoit les caractéristiques d'un patient et renvoie la prédiction de diabète.
-    Les entrées binaires (Gender, Symptômes) doivent être 0 (No/Female) ou 1 (Yes/Male).
     """
+    # Vérification du modèle
     if model_pipeline is None:
         raise HTTPException(status_code=503, detail="Service non disponible: Modèle de prédiction non chargé.")
 
@@ -77,17 +76,13 @@ def predict_diabete(patient: PatientFeatures):
         data = patient.model_dump()
         input_df = pd.DataFrame([data])
         
-        # S'assurer que les colonnes sont dans le bon ordre (celui utilisé lors de l'entraînement)
-        # Note: L'ordre des colonnes du modèle Pydantic doit correspondre aux colonnes du train set
-        # L'ordre par défaut de Pydantic est l'ordre de définition.
-        
         # 2. Prédiction de probabilité
+        # La prédiction est maintenant rapide car le modèle est déjà en mémoire.
         proba = model_pipeline.predict_proba(input_df)[:, 1][0]
-        score = float(proba) # Probabilité d'être de classe Positive (diabète)
+        score = float(proba)
         
         # 3. Décision (Seuil de 0.5)
-        prediction_binary = (score >= 0.5) * 1 # 1 si score >= 0.5, 0 sinon
-        decision = "Positive" if prediction_binary == 1 else "Negative"
+        decision = "Positive" if score >= 0.5 else "Negative"
         
         # 4. Retour du résultat
         return {
@@ -97,11 +92,6 @@ def predict_diabete(patient: PatientFeatures):
         }
         
     except Exception as e:
-        # Gérer les erreurs inattendues durant la prédiction (ex: mauvaise forme de données après l'étape Pydantic)
+        # Gérer les erreurs inattendues
         print(f"Erreur de prédiction: {e}")
-        raise HTTPException(status_code=500, detail=f"Erreur interne de prédiction: {str(e)}")
-
-# --- Commandes de Lancement (pour le README) ---
-# Pour lancer l'API : uvicorn app:app --reload
-# Port par défaut : http://127.0.0.1:8000
-# Documentation Swagger : http://127.0.0.1:8000/docs
+        raise HTTPException(status_code=500, detail=f"Erreur interne de prédiction: {type(e).__name__}: {str(e)}")
